@@ -1,84 +1,108 @@
-# GRID — F1 2026 Explained
+# GRID — F1 2026 reference
 
-**A design-forward, single-page guide to Formula 1 — built for absolute beginners and seasoned fans.**
+**An editorial reference for Formula 1 in its 2026 era. Compressed and explained.**
 
-Live focus: 2026 season — the biggest regulation reset in F1 history. New engines, new chassis, new aero, sustainable fuel, 11 teams (Cadillac just arrived), Audi factory entry, and a wide-open championship.
+Eleven teams. Twenty-two drivers. Twenty-two tracks. The biggest technical reset in F1 history just hit, and this is a primer that respects your time.
 
-🔗 **Live demo:** `parth8.github.io/grid` (after deploy)
+🔗 **Live:** parth8.github.io/grid (after deploy)
 
 ---
 
-## What's inside
+## Design brief
 
-| Section | What it does |
-|---|---|
-| **Hero** | Animated SVG F1 car that tilts with your mouse. The site's heartbeat. |
-| **2026 Briefing** | 8 cards explaining everything that changed: Active Aero, 50-50 hybrid, sustainable fuel, smaller cars, Cadillac, Audi, Manual Override, Madrid. |
-| **The Grid** | All 11 teams. Click any card for the full story — history, base, principal, iconic moment, drivers. |
-| **Drivers** | All 22 drivers. Filter by champions / rookies / veterans. Click for the full bio with helmet SVG in their team colors. |
-| **Tracks** | Every 2026 circuit with an SVG track layout. Filter by region or sprint weekend. |
-| **Race Weekend** | Interactive timeline. Click any session (FP1 → Sprint → GP) to see what happens and why. |
-| **Active Aero** | Interactive SVG car. Toggle Z-Mode (corner, max grip) vs X-Mode (straight, low drag). Watch the wing flaps move. |
-| **Tyres & Strategy** | Pick 3 stints, drag the lap sliders. Game checks if you used 2 different dry compounds. Computes total race time with pit stops + tyre degradation. |
-| **Pit Stop Game** | Click each wheel as it turns red. Race against the F1 record (1.82s). Best time saved in localStorage. |
-| **Flags** | All 8 official flags with waving animation + clear definitions. |
-| **2026 Standings** | Current championship through Monaco. Antonelli leading after 5 straight wins. |
-| **History** | 76 years of F1 in 15 moments. Scroll-revealed timeline. |
-| **Glossary A-Z** | 32 terms searchable. From Active Aero to VSC. |
+Built as if by an indie studio obsessed with sports, minimalism, architecture, UI/UX, and reducing cognitive load by compressing and abstracting systems. Specifically not a Wikipedia-with-flair, not a sales site, not a dashboard.
 
-## Personalization 🎨
+The vocabulary:
 
-Click "Pick your team" — the **entire site themes itself** to your team's color. Persisted in localStorage so it remembers next visit.
+- **Cream paper** background — printable warmth, not screen-blue
+- **Warm ink** for text — black with brown in it, less harsh
+- **Single accent — F1 racing red** — used surgically: active aero flaps, championship leader, anatomy callouts, navigation underline. No neon, no second hue.
+- **Three typefaces**: Inter Tight (clean geometric sans), Instrument Serif (italic punctuation only), JetBrains Mono (data, labels, dimensions)
+- **Section numbers** like §01, §02 — editorial, not decorative
+- **Hairline rules** for tables — information density without weight
+- **Top-down technical drawings** for the car — architectural, not stylised
+- **Dimension lines** like a blueprint — 5,400mm noted, not described
 
-## Features that earn the build
+Every visual choice serves the brief: make F1 legible without making it ornamental.
 
-- 🎨 **Custom SVG illustrations** — F1 car, driver helmets, all 22 track layouts, the lot. No stock images.
-- 🔊 **Web Audio API engine sounds** — synthesized V6 turbo rev on every team selection. Synthesized clicks during pit stop game.
-- ⚡ **Active Aero animation** — wing flaps actually rotate when you toggle modes. Speed lines stream in X-Mode.
-- 🎮 **Two interactive games** — Pit Stop reaction game + Tyre Strategy Builder with real(ish) lap time math.
-- 📱 **Fully responsive** — mobile nav, restructured grids on tablet/phone.
-- ♿ **Accessible** — reduced-motion media query, semantic HTML, ARIA labels on game buttons.
-- ⌨️ **Easter egg** — type `lights` anywhere on the page. 🚦
+---
+
+## Sections
+
+| # | Section | What it does |
+|---|---|---|
+| §01 | **Reset** | 8-row comparison table — 2025 → 2026 by category. The delta in one glance. |
+| §02 | **Anatomy** | Top-down technical drawing of an F1 car with 8 numbered callouts. Hover or click any number/callout, the relevant part highlights red. |
+| §03 | **Teams** | Tabular layout — 11 rows, colour swatch, drivers, engine, base, titles. Click any row for the full story modal. |
+| §04 | **Drivers** | Tabular — 22 rows with flag, team dot, titles, wins, age. Champions marked with a red star. Lindblad marked with a red R. Click any row for detail. |
+| §05 | **Calendar** | 22-cell grid with custom abstracted track silhouettes. Filter by region or sprint weekends. |
+| §06 | **Race Weekend** | Three-column day layout — Friday, Saturday, Sunday — with clickable sessions and detailed explanations. |
+| §07 | **Active Aero** | Side-elevation technical drawing of an F1 car. Toggle Z-Mode (corner, max grip) vs X-Mode (straight, low drag). Wing flaps physically rotate. Speed lines stream in X-mode. |
+| §08 | **Tyres** | Five compounds, pace and life as horizontal bars. The strategic core in one chart. |
+| §09 | **Strategy** | 60-lap race simulator. Pick three stints, set their length, choose compounds. Total race time computed with tyre degradation. Validates the 2-different-dry-compounds rule. |
+| §10 | **Pit Stop** | Top-down technical car diagram. Reaction game — tap each wheel as it turns red. Wrong wheel = 0.5s penalty. Beats stored locally. F1 record (1.82s) as benchmark. |
+| §11 | **Flags** | All 8 official flag types with accurate colour and one-line meaning. |
+| §12 | **Standings** | Current 2026 driver championship through Monaco. Antonelli leading on 156. Team-coloured stripes. Click any row for the driver detail modal. |
+| §13 | **History** | 76 years compressed into 5 eras, each with a defining stat. Not a list of trivia. |
+| §14 | **A–Z Glossary** | 32 terms searchable in real time. From Active Aero to VSC. |
+
+---
+
+## What's interactive
+
+- **Two filterable tables** — drivers (4 filters), calendar (6 filters)
+- **Anatomy diagram** — hover/click any of 8 markers, both the marker and the callout text highlight in sync
+- **Race weekend** — click any of 7 sessions across three days
+- **Active aero toggle** — flap angles rotate, speed lines stream, stats update, descriptions swap
+- **Strategy simulator** — three stint sliders + dropdowns, live total race time + compliance check
+- **Pit stop game** — random wheel order, reaction-time timing, local best persisted, audio cues
+- **Click-anywhere modals** — team and driver detail with stats, story, pull quote
+- **Sound** — synthesized Web Audio cues for the pit stop game only (subtle, not gimmicky)
+
+---
 
 ## Tech
 
-- Pure **HTML / CSS / JS**. No frameworks, no build step.
-- Google Fonts (Bebas Neue, DM Serif Text, DM Mono).
-- ~165 KB total, single page.
+- Plain HTML / CSS / JS. No frameworks, no build step, no node_modules.
+- Google Fonts (Inter Tight, Instrument Serif, JetBrains Mono).
+- ~141 KB total payload across four files.
+
+---
 
 ## Project structure
 
 ```
 .
-├── index.html
+├── index.html          # Editorial document with §01–§14 sections
 ├── css/
-│   └── styles.css
-├── js/
-│   ├── data.js     # All 2026 F1 data (teams, drivers, tracks, history, glossary)
-│   └── main.js     # Rendering, interactions, games, sound
-└── README.md
+│   └── styles.css      # ~1,800 lines · full design system
+└── js/
+    ├── data.js         # 2026 reference — teams, drivers, tracks, glossary, history, etc.
+    └── main.js         # ~750 lines · rendering, interactivity, games, modals
 ```
 
-## Deploy to GitHub Pages
+## Deploy
 
-1. **Push to a repo** (e.g., `parth8/grid` or as a subfolder of `parth8.github.io`).
-2. **Enable Pages**: Settings → Pages → Source: `main` branch / root → Save.
-3. **Live at** `https://<your-username>.github.io/<repo-name>/`.
+Drop the folder into any GitHub Pages-enabled repo. No build, no config.
 
-Or drop these files into a subfolder of an existing `username.github.io` repo — works the same way (e.g., `parth8.github.io/grid`).
+If pushing to `parth8.github.io` as a subfolder:
 
-No build step. No package.json. Just static files.
+```bash
+cp -r grid /path/to/parth8.github.io/
+cd /path/to/parth8.github.io
+git add grid
+git commit -m "Add GRID · F1 2026 reference"
+git push
+```
 
-## Data sources
-
-All 2026 data verified via web sources around June 2026: FIA entry list, official F1 calendar, championship standings through Monaco GP. Driver numbers reflect 2026 reality (Norris #1 as reigning champion, Verstappen #3, Lindblad #41).
-
-## Credits
-
-Built by **Parth** as part of the [parth8.github.io](https://parth8.github.io) portfolio.
-
-Not affiliated with Formula 1, the FIA, or any team. This is an educational fan project. F1, FIA, team names and likenesses belong to their respective owners.
+Live at `parth8.github.io/grid` within a minute.
 
 ---
 
-*Lights out and away we go.* 🏁
+## Data
+
+All 2026 data verified June 2026: FIA entry list, official 2026 calendar (Madrid debuts, Bahrain + Saudi cancelled), driver numbers (Norris #1 as champion, Verstappen #3, Lindblad #41), standings through Monaco GP. Eras and history compressed to five rather than the usual chronology-of-firsts.
+
+---
+
+Not affiliated with Formula 1, the FIA, or any team. F1 marks and likenesses belong to their owners. An educational reference made by [Parth](https://parth8.github.io).
