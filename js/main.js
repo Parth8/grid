@@ -1009,6 +1009,103 @@
     return 'NOTE';
   }
 
+  // Pick a sensible "most recent completed session". Used by both home and live pages.
+  async function pickRecentSession() {
+    const now = new Date();
+    // Try `session_key=latest` first
+    try {
+      const latest = await fetchJSON(`${OPENF1}/sessions?session_key=latest`);
+      if (latest && latest[0]) {
+        const s = latest[0];
+        const ds = s.date_start ? new Date(s.date_start) : null;
+        // If latest hasn't started yet, fall through to year-based lookup
+        if (!ds || ds <= now) return s;
+      }
+    } catch (e) { /* fall through to year-based */ }
+
+    // Fall back: get all sessions from current and previous years (covers off-season)
+    for (const year of [now.getFullYear(), now.getFullYear() - 1]) {
+      try {
+        const ys = await fetchJSON(`${OPENF1}/sessions?year=${year}`);
+        const past = (ys || []).filter(s => s.date_start && new Date(s.date_start) <= now)
+                                .sort((a,b) => new Date(b.date_start) - new Date(a.date_start));
+        if (past[0]) return past[0];
+      } catch (e) { /* try previous year */ }
+    }
+    return null;
+  }
+
+  // §02 on home page — show top-3 from the most recent session
+  async function loadLatestRace() {
+    const card = $('#latestCard');
+    if (!card) return;
+
+    try {
+      const session = await pickRecentSession();
+      if (!session) {
+        card.innerHTML = `<div class="live-error">Couldn't reach OpenF1. Try the <a href="live/" style="color:var(--ink);text-decoration:underline;text-underline-offset:3px;">live page</a> or refresh.</div>`;
+        return;
+      }
+      const key = session.session_key;
+      const [drivers, positions] = await Promise.all([
+        fetchJSON(`${OPENF1}/drivers?session_key=${key}`),
+        fetchJSON(`${OPENF1}/position?session_key=${key}`)
+      ]);
+      const driverMap = Object.fromEntries((drivers || []).map(d => [d.driver_number, d]));
+      const latest = {};
+      for (const p of (positions || [])) {
+        const prev = latest[p.driver_number];
+        if (!prev || new Date(p.date) > new Date(prev.date)) latest[p.driver_number] = p;
+      }
+      const top3 = Object.values(latest).sort((a, b) => a.position - b.position).slice(0, 3);
+      const isLiveNow = session.date_end ? (new Date(session.date_end) > new Date()) : false;
+      const eyebrow = isLiveNow ? '● Live session' : 'Most recent session';
+
+      const date = session.date_start ? new Date(session.date_start) : null;
+      const dateStr = date ? date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : '—';
+
+      card.innerHTML = `
+        <div class="latest-head">
+          <div class="latest-session">
+            <span class="eyebrow">${eyebrow}</span>
+            ${session.meeting_name || '—'} <em>${session.session_name || ''}</em>
+          </div>
+          <div class="latest-circuit">
+            <div class="k">Circuit</div>
+            <div>${session.circuit_short_name || '—'}</div>
+            <div style="margin-top:4px; color:var(--ink-3);">${session.country_name || ''}${dateStr ? ' · ' + dateStr : ''}</div>
+          </div>
+        </div>
+
+        ${top3.length === 0 ? `
+          <div class="live-empty">No position data available for this session yet.</div>
+        ` : `
+          <div class="latest-podium">
+            ${top3.map(p => {
+              const d = driverMap[p.driver_number] || {};
+              const teamColor = d.team_colour ? `#${d.team_colour}` : '#5C5A52';
+              return `
+                <div class="podium-cell p${p.position}" style="border-left-color: ${teamColor};">
+                  <div class="podium-pos"><span class="big">P${p.position}</span> ${p.position === 1 ? '· winner' : ''}</div>
+                  <div class="podium-name">${d.full_name || ('#' + p.driver_number)}</div>
+                  <div class="podium-team">${d.team_name || ''} · #${p.driver_number}</div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `}
+
+        <div class="latest-meta">
+          <span>Source · <a href="https://openf1.org" target="_blank" rel="noopener">openf1.org</a></span>
+          <span>${session.session_type || ''} · session_key ${key}</span>
+        </div>
+      `;
+    } catch (err) {
+      console.error('[OpenF1 latest]', err);
+      card.innerHTML = `<div class="live-error">Live feed unavailable right now (<code>${(err && err.message) || 'network error'}</code>). The static standings below are accurate through Monaco GP.</div>`;
+    }
+  }
+
   async function loadLive() {
     if (!$('#liveCard')) return; // not the live page
 
@@ -1016,35 +1113,39 @@
     $('#liveRefresh').disabled = true;
 
     try {
-      // Step 1 — Find most recent session
-      const sessions = await fetchJSON(`${OPENF1}/sessions?session_key=latest`);
-      let session = sessions && sessions[0];
-      if (!session) throw new Error('No latest session');
-
-      // If "latest" is a future race that hasn't started yet, try most-recent-completed
-      const now = new Date();
-      const dateStart = session.date_start ? new Date(session.date_start) : null;
-      if (dateStart && dateStart > now) {
-        // Fall back: pull all sessions from this year, find most recent that has started
-        const yearSessions = await fetchJSON(`${OPENF1}/sessions?year=${now.getFullYear()}`);
-        const past = (yearSessions || []).filter(s => new Date(s.date_start) <= now)
-                                          .sort((a,b) => new Date(b.date_start) - new Date(a.date_start));
-        if (past[0]) session = past[0];
-      }
-
+      // Use shared session picker (handles off-season + future-session fallback)
+      let session = await pickRecentSession();
+      if (!session) throw new Error('No session data available from OpenF1');
       const key = session.session_key;
 
       // Render headline session card
       const cardEl = $('#liveCard');
+      const now = new Date();
       const isLive = session.date_end ? (new Date(session.date_end) > now) : false;
+      const startDate = session.date_start ? new Date(session.date_start) : null;
+      const endDate = session.date_end ? new Date(session.date_end) : null;
+
+      let timeAgo = '';
+      if (endDate && endDate < now) {
+        const diffMs = now - endDate;
+        const diffHr = diffMs / 3600000;
+        if (diffHr < 1) timeAgo = `Ended ${Math.round(diffMs/60000)} min ago`;
+        else if (diffHr < 24) timeAgo = `Ended ${Math.round(diffHr)} hours ago`;
+        else if (diffHr < 168) timeAgo = `Ended ${Math.round(diffHr/24)} days ago`;
+        else timeAgo = `Ended ${Math.round(diffHr/168)} weeks ago`;
+      } else if (isLive) {
+        timeAgo = 'Currently live';
+      }
+
+      const eyebrowText = isLive ? '● Live now' : (timeAgo || 'Most recent session');
       cardEl.innerHTML = `
         <div class="live-card-head">
           <div>
-            <div class="live-card-eyebrow">${isLive ? '● Live' : 'Most recent session'}</div>
+            <div class="live-card-eyebrow">${eyebrowText}</div>
             <div class="live-card-title">${session.session_name || '—'}<em>.</em></div>
           </div>
           <div class="live-card-side">
-            <div class="k">Meeting</div>
+            <div class="k">Meeting · ${session.year || '—'}</div>
             <div class="v">${session.meeting_name || '—'}</div>
           </div>
         </div>
@@ -1218,7 +1319,7 @@
     if (page === 'home') {
       renderPrimer();
       renderCompare();
-      // standings (preview) - just top 10
+      loadLatestRace();
       renderStandings();
     }
 
