@@ -3,567 +3,174 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="GRID — a reference for Formula 1's 2026 era. Eleven teams, twenty-two drivers, twenty-two tracks. Compressed and explained.">
+<meta name="description" content="GRID — Formula 1 in 2026. An editorial reference. Eleven teams, twenty-two drivers, the biggest technical reset in F1 history.">
 <meta name="theme-color" content="#F0EBE0">
-<title>GRID — F1 2026 reference</title>
-
+<title>GRID · F1 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F0EBE0'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23E10600'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F0EBE0'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23E10600'/%3E%3C/svg%3E">
 </head>
-<body>
+<body data-page="home">
 
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="#top" class="nav-mark">
-      <span class="red"></span>
-      <span>GRID</span>
-      <span class="year">↗ 2026 reference</span>
-    </a>
-    <div class="nav-links" id="navLinks">
-      <a href="#changes">01 Reset</a>
-      <a href="#anatomy">02 Car</a>
-      <a href="#teams">03 Teams</a>
-      <a href="#drivers">04 Drivers</a>
-      <a href="#calendar">05 Calendar</a>
-      <a href="#weekend">06 Weekend</a>
-      <a href="#aero">07 Aero</a>
-      <a href="#tyres">08 Tyres</a>
-      <a href="#strategy">09 Strategy</a>
-      <a href="#pitstop">10 Pit stop</a>
-      <a href="#standings">12 Standings</a>
-      <a href="#history">13 History</a>
-      <a href="#glossary">14 A-Z</a>
-    </div>
-    <div class="nav-right">
-      <span class="nav-clock"><span class="nav-clock-text">Through Monaco GP · Round 06</span></span>
-      <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
-    </div>
+<nav class="page-nav">
+  <a href="./" class="nav-mark"><span>GRID</span><em class="dot"></em></a>
+  <div class="nav-links" id="navLinks">
+    <a href="./" class="active">Home</a>
+    <a href="the-grid/">The Grid</a>
+    <a href="the-car/">The Car</a>
+    <a href="live/">Live</a>
+    <a href="learn/">Learn</a>
   </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- ============================================
+<!-- ============================================================
      COVER
-     ============================================ -->
-<section class="cover wrap" id="top">
-  <div class="cover-top">
-    <div>
-      <div class="label">A reference</div>
-      <h1 class="cover-title">GRID<span class="red-dot"></span><br><em>F1, 2026.</em></h1>
-    </div>
+     ============================================================ -->
+<header class="cover">
+  <div class="cover-grid">
     <div class="cover-meta">
-      <div><span>Issue</span><span>01 — June 2026</span></div>
-      <div><span>Edition</span><span>Public · open access</span></div>
-      <div><span>Subject</span><span>Formula 1, the 2026 reset</span></div>
-      <div><span>For</span><span>The curious, the new, the obsessed</span></div>
+      <span>Edition · vol. 2026</span>
+      <span>Through Monaco GP</span>
+      <span>Sun · 14 Jun 2026</span>
     </div>
+    <div class="cover-issue">№ 01</div>
   </div>
+
+  <h1 class="cover-title">
+    <span class="line">GRID<em>,</em></span>
+    <span class="line">F1 <em class="serif">in 2026.</em></span>
+  </h1>
 
   <p class="cover-sub">
-    Compressed and explained. Every team, every driver, every track on the 2026 calendar — and the wholesale technical reset that arrived in March.
+    An editorial reference for Formula 1 in its 2026 era. Eleven teams. Twenty-two drivers. Twenty-two races. The biggest technical reset in the sport&rsquo;s history.
   </p>
 
-  <div class="cover-bottom">
-    <div class="cover-stat">
-      <div class="label">Teams</div>
-      <div class="v">11</div>
-      <div class="sub">↑ from 10 · Cadillac in</div>
-    </div>
-    <div class="cover-stat">
-      <div class="label">Drivers</div>
-      <div class="v">22</div>
-      <div class="sub">7 world champions · 1 rookie</div>
-    </div>
-    <div class="cover-stat">
-      <div class="label">Rounds</div>
-      <div class="v">22</div>
-      <div class="sub">↓ from 24 · Madrid debuts</div>
-    </div>
-    <div class="cover-stat">
-      <div class="label">Power split</div>
-      <div class="v">50 / 50</div>
-      <div class="sub">Combustion / electric</div>
-    </div>
+  <div class="cover-stats">
+    <div><div class="k">Teams</div><div class="v">11</div><div class="d">Cadillac arrived</div></div>
+    <div><div class="k">Drivers</div><div class="v">22</div><div class="d">One rookie</div></div>
+    <div><div class="k">Races</div><div class="v">22</div><div class="d">Madrid debuts</div></div>
+    <div><div class="k">Seasons</div><div class="v">76</div><div class="d">Since 1950</div></div>
   </div>
+
+  <div class="cover-divider"><span class="rule"></span><span class="caret">↓</span></div>
+</header>
+
+<!-- ============================================================
+     §00 — WHAT IS FORMULA 1
+     ============================================================ -->
+<section class="section-block" id="primer">
+  <div class="sec-head">
+    <div class="sec-left">
+      <div class="sec-num">§00</div>
+      <h2 class="sec-title">What is <em>Formula 1?</em></h2>
+    </div>
+    <p class="sec-lede">
+      Eight rules to know before anything else. The shortest possible introduction to the world&rsquo;s fastest sport.
+    </p>
+  </div>
+  <div class="primer-grid" id="primerGrid"></div>
 </section>
 
-<!-- ============================================
-     §01 — 2026 RESET
-     ============================================ -->
+<!-- ============================================================
+     §01 — THE 2026 RESET
+     ============================================================ -->
 <section class="section-block" id="changes">
-  <div class="wrap">
-    <header class="sec-head">
-      <div class="num">§01</div>
-      <h2 class="title">What <em>just changed.</em></h2>
-      <p class="desc">Lewis Hamilton called these the biggest regulation changes of his entire 20-year career. Side by side, here is the delta from 2025 to 2026.</p>
-    </header>
-
-    <div class="compare">
-      <div class="compare-col-label">Category</div>
-      <div class="compare-col-label">2025</div>
-      <div class="compare-col-label">2026 →</div>
-      <!-- Rows injected by JS -->
+  <div class="sec-head">
+    <div class="sec-left">
+      <div class="sec-num">§01</div>
+      <h2 class="sec-title">The 2026 <em>reset.</em></h2>
     </div>
+    <p class="sec-lede">
+      Lewis Hamilton called these the biggest regulation changes of his twenty-year career. Engines, chassis, fuel, aerodynamics — all rebuilt at once.
+    </p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-head k">Category</div>
+    <div class="compare-head o">2025 era</div>
+    <div class="compare-head n">2026 onwards</div>
   </div>
 </section>
 
-<!-- ============================================
-     §02 — ANATOMY OF A CAR
-     ============================================ -->
-<section class="section-block" id="anatomy">
-  <div class="wrap">
-    <header class="sec-head">
-      <div class="num">§02</div>
-      <h2 class="title">Anatomy of <em>a car.</em></h2>
-      <p class="desc">A 2026 Formula 1 car weighs around 768 kg, including driver. Roughly 1,000 hp combined. Click any number on the diagram to see what it does.</p>
-    </header>
-
-    <div class="anatomy-wrap">
-      <svg class="anatomy-svg" viewBox="0 0 800 280" id="anatomySvg" xmlns="http://www.w3.org/2000/svg" aria-label="Top-down technical diagram of a 2026 F1 car">
-        <!-- Centerline -->
-        <line x1="60" y1="140" x2="760" y2="140" stroke="#D8D2C2" stroke-width="0.5" stroke-dasharray="2 4"/>
-
-        <!-- Floor / outline (top-down, the simplest possible architectural rendering) -->
-        <!-- Front wing -->
-        <rect x="80" y="80" width="100" height="120" fill="none" stroke="#14130E" stroke-width="1.2"/>
-        <!-- Front wing endplates lines -->
-        <line x1="80" y1="100" x2="180" y2="100" stroke="#14130E" stroke-width="0.6"/>
-        <line x1="80" y1="180" x2="180" y2="180" stroke="#14130E" stroke-width="0.6"/>
-
-        <!-- Nose -->
-        <path d="M 180 110 L 240 130 L 240 150 L 180 170 Z" fill="none" stroke="#14130E" stroke-width="1.2"/>
-
-        <!-- Front wheels -->
-        <rect x="220" y="60" width="50" height="22" fill="none" stroke="#14130E" stroke-width="1"/>
-        <rect x="220" y="198" width="50" height="22" fill="none" stroke="#14130E" stroke-width="1"/>
-        <!-- Wheel hub circles -->
-        <circle cx="245" cy="71" r="6" fill="none" stroke="#14130E" stroke-width="0.6"/>
-        <circle cx="245" cy="209" r="6" fill="none" stroke="#14130E" stroke-width="0.6"/>
-
-        <!-- Main body / chassis (cockpit area) -->
-        <path d="M 240 110 L 320 105 L 360 110 L 360 170 L 320 175 L 240 170 Z" fill="none" stroke="#14130E" stroke-width="1.2"/>
-
-        <!-- Halo -->
-        <ellipse cx="295" cy="140" rx="22" ry="14" fill="none" stroke="#14130E" stroke-width="1.2"/>
-        <line x1="295" y1="126" x2="295" y2="154" stroke="#14130E" stroke-width="0.6"/>
-
-        <!-- Sidepods / engine cover (widening to engine bay) -->
-        <path d="M 360 105 L 460 100 L 460 180 L 360 175 Z" fill="none" stroke="#14130E" stroke-width="1.2"/>
-        <!-- Sidepod inlet hints -->
-        <rect x="370" y="115" width="80" height="10" fill="none" stroke="#14130E" stroke-width="0.6"/>
-        <rect x="370" y="155" width="80" height="10" fill="none" stroke="#14130E" stroke-width="0.6"/>
-
-        <!-- Engine bay / floor narrowing toward rear -->
-        <path d="M 460 100 L 600 110 L 600 170 L 460 180 Z" fill="none" stroke="#14130E" stroke-width="1.2"/>
-
-        <!-- Floor / diffuser -->
-        <path d="M 240 170 L 600 170 L 600 175 L 240 180 Z" fill="none" stroke="#14130E" stroke-width="0.6"/>
-
-        <!-- Rear wheels -->
-        <rect x="600" y="55" width="55" height="25" fill="none" stroke="#14130E" stroke-width="1"/>
-        <rect x="600" y="200" width="55" height="25" fill="none" stroke="#14130E" stroke-width="1"/>
-        <circle cx="627" cy="67" r="7" fill="none" stroke="#14130E" stroke-width="0.6"/>
-        <circle cx="627" cy="212" r="7" fill="none" stroke="#14130E" stroke-width="0.6"/>
-
-        <!-- Rear crash structure -->
-        <path d="M 600 110 L 670 120 L 670 160 L 600 170 Z" fill="none" stroke="#14130E" stroke-width="1.2"/>
-
-        <!-- Rear wing -->
-        <rect x="640" y="60" width="80" height="160" fill="none" stroke="#14130E" stroke-width="1.2"/>
-        <line x1="640" y1="100" x2="720" y2="100" stroke="#14130E" stroke-width="0.6"/>
-        <line x1="640" y1="140" x2="720" y2="140" stroke="#14130E" stroke-width="0.6"/>
-        <line x1="640" y1="180" x2="720" y2="180" stroke="#14130E" stroke-width="0.6"/>
-
-        <!-- Dimension lines (architectural feel) -->
-        <line x1="60" y1="40" x2="760" y2="40" stroke="#918D80" stroke-width="0.5"/>
-        <line x1="60" y1="36" x2="60" y2="44" stroke="#918D80" stroke-width="0.5"/>
-        <line x1="760" y1="36" x2="760" y2="44" stroke="#918D80" stroke-width="0.5"/>
-        <text x="410" y="34" text-anchor="middle" fill="#5C5A52" font-family="JetBrains Mono" font-size="10" letter-spacing="0.5">5,400 mm</text>
-
-        <line x1="40" y1="40" x2="40" y2="240" stroke="#918D80" stroke-width="0.5"/>
-        <line x1="36" y1="40" x2="44" y2="40" stroke="#918D80" stroke-width="0.5"/>
-        <line x1="36" y1="240" x2="44" y2="240" stroke="#918D80" stroke-width="0.5"/>
-        <text x="28" y="140" text-anchor="middle" fill="#5C5A52" font-family="JetBrains Mono" font-size="10" letter-spacing="0.5" transform="rotate(-90 28 140)">1,900 mm</text>
-
-        <!-- Callout markers (8) -->
-        <g class="anatomy-marker" data-cid="1"><circle cx="130" cy="140" r="11" fill="#F0EBE0" stroke="#14130E" stroke-width="1.2"/><text x="130" y="144" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#14130E" font-weight="500">1</text></g>
-        <g class="anatomy-marker" data-cid="2"><circle cx="295" cy="140" r="11" fill="#F0EBE0" stroke="#14130E" stroke-width="1.2"/><text x="295" y="144" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#14130E" font-weight="500">2</text></g>
-        <g class="anatomy-marker" data-cid="3"><circle cx="270" cy="190" r="11" fill="#F0EBE0" stroke="#14130E" stroke-width="1.2"/><text x="270" y="194" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#14130E" font-weight="500">3</text></g>
-        <g class="anatomy-marker" data-cid="4"><circle cx="410" cy="105" r="11" fill="#F0EBE0" stroke="#14130E" stroke-width="1.2"/><text x="410" y="109" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#14130E" font-weight="500">4</text></g>
-        <g class="anatomy-marker" data-cid="5"><circle cx="410" cy="175" r="11" fill="#F0EBE0" stroke="#14130E" stroke-width="1.2"/><text x="410" y="179" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#14130E" font-weight="500">5</text></g>
-        <g class="anatomy-marker" data-cid="6"><circle cx="530" cy="155" r="11" fill="#F0EBE0" stroke="#14130E" stroke-width="1.2"/><text x="530" y="159" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#14130E" font-weight="500">6</text></g>
-        <g class="anatomy-marker" data-cid="7"><circle cx="680" cy="140" r="11" fill="#F0EBE0" stroke="#14130E" stroke-width="1.2"/><text x="680" y="144" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#14130E" font-weight="500">7</text></g>
-        <g class="anatomy-marker" data-cid="8"><circle cx="627" cy="68" r="11" fill="#F0EBE0" stroke="#14130E" stroke-width="1.2"/><text x="627" y="72" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#14130E" font-weight="500">8</text></g>
-      </svg>
-
-      <div class="anatomy-callouts" id="anatomyCallouts">
-        <!-- Injected by JS -->
-      </div>
+<!-- ============================================================
+     STANDINGS PREVIEW
+     ============================================================ -->
+<section class="section-block" id="standings-preview">
+  <div class="sec-head">
+    <div class="sec-left">
+      <div class="sec-num">§02</div>
+      <h2 class="sec-title">Standings <em>now.</em></h2>
     </div>
+    <p class="sec-lede">
+      Through the Monaco GP — round 6 of 22. Antonelli leads on 156 after five consecutive wins. Hamilton, Russell and Leclerc fight for second.
+    </p>
   </div>
+  <div class="standings-list" id="standingsList"></div>
+  <a href="learn/#history" class="read-more">See history of every champion <span class="arrow">→</span></a>
 </section>
 
-<!-- ============================================
-     §03 — TEAMS
-     ============================================ -->
-<section class="section-block" id="teams">
-  <div class="wrap">
-    <header class="sec-head">
-      <div class="num">§03</div>
-      <h2 class="title">The <em>eleven.</em></h2>
-      <p class="desc">Each team builds its own car. Two drivers per team. Points combine for the Constructors&rsquo; Championship — and the prize money. Click any row.</p>
-    </header>
-
-    <div class="teams-table" id="teamsTable">
-      <!-- Injected by JS -->
+<!-- ============================================================
+     ROUTE — cards to other pages
+     ============================================================ -->
+<section class="section-block" id="route">
+  <div class="sec-head">
+    <div class="sec-left">
+      <div class="sec-num">§03</div>
+      <h2 class="sec-title">Read on.</h2>
     </div>
+    <p class="sec-lede">
+      Four further chapters. Each focused. Tap any to continue.
+    </p>
+  </div>
+
+  <div class="route-grid">
+    <a href="the-grid/" class="route-card">
+      <div class="route-num">A.</div>
+      <h3>The Grid<em>.</em></h3>
+      <p>Eleven teams. Twenty-two drivers. Twenty-two races. The people, the constructors, the calendar.</p>
+      <span class="route-cta">Open <span class="arrow">→</span></span>
+    </a>
+    <a href="the-car/" class="route-card">
+      <div class="route-num">B.</div>
+      <h3>The Car<em>.</em></h3>
+      <p>Anatomy, active aero, tyres. How a 2026 F1 car works, and the strategy that wraps around it.</p>
+      <span class="route-cta">Open <span class="arrow">→</span></span>
+    </a>
+    <a href="live/" class="route-card">
+      <div class="route-num">C.</div>
+      <h3>Live<em>.</em></h3>
+      <p>Real-time session data via OpenF1. Positions, fastest laps, weather, race-control flags — straight from the source.</p>
+      <span class="route-cta">Open <span class="arrow">→</span></span>
+    </a>
+    <a href="learn/" class="route-card">
+      <div class="route-num">D.</div>
+      <h3>Learn<em>.</em></h3>
+      <p>How a race weekend works, every flag explained, seventy-six years of history, and a complete A&ndash;Z glossary.</p>
+      <span class="route-cta">Open <span class="arrow">→</span></span>
+    </a>
   </div>
 </section>
 
-<!-- ============================================
-     §04 — DRIVERS
-     ============================================ -->
-<section class="section-block" id="drivers">
-  <div class="wrap">
-    <header class="sec-head">
-      <div class="num">§04</div>
-      <h2 class="title">The <em>twenty-two.</em></h2>
-      <p class="desc">Seven world champions, nineteen titles between them. The widest age range in F1 history — Lindblad is 18, Alonso is 44.</p>
-    </header>
-
-    <div class="drv-filters" id="drvFilters">
-      <button class="drv-filter active" data-filter="all">All · 22</button>
-      <button class="drv-filter" data-filter="champions">Champions</button>
-      <button class="drv-filter" data-filter="rookies">Young (under 24)</button>
-      <button class="drv-filter" data-filter="veterans">Veterans (30+)</button>
-    </div>
-
-    <div class="drv-table" id="drvTable"></div>
-  </div>
-</section>
-
-<!-- ============================================
-     §05 — CALENDAR
-     ============================================ -->
-<section class="section-block" id="calendar">
-  <div class="wrap">
-    <header class="sec-head">
-      <div class="num">§05</div>
-      <h2 class="title">The <em>calendar.</em></h2>
-      <p class="desc">Twenty-two races across five continents. Bahrain and Saudi Arabia were cancelled mid-season. Madrid replaces Imola.</p>
-    </header>
-
-    <div class="cal-filters" id="calFilters">
-      <button class="cal-filter active" data-region="all">All · 22</button>
-      <button class="cal-filter" data-region="europe">Europe</button>
-      <button class="cal-filter" data-region="americas">Americas</button>
-      <button class="cal-filter" data-region="asia">Asia &amp; ME</button>
-      <button class="cal-filter" data-region="oceania">Oceania</button>
-      <button class="cal-filter" data-region="sprint">Sprint weekends</button>
-    </div>
-
-    <div class="cal-grid" id="calGrid"></div>
-  </div>
-</section>
-
-<!-- ============================================
-     §06 — RACE WEEKEND
-     ============================================ -->
-<section class="section-block" id="weekend">
-  <div class="wrap">
-    <header class="sec-head">
-      <div class="num">§06</div>
-      <h2 class="title">A race <em>weekend.</em></h2>
-      <p class="desc">Three days, one race. Every Grand Prix runs to the same rhythm. Click any session below.</p>
-    </header>
-
-    <div class="weekend" id="weekendBox"></div>
-  </div>
-</section>
-
-<!-- ============================================
-     §07 — ACTIVE AERO
-     ============================================ -->
-<section class="section-block" id="aero">
-  <div class="wrap">
-    <header class="sec-head">
-      <div class="num">§07</div>
-      <h2 class="title">Active <em>aero.</em></h2>
-      <p class="desc">DRS is gone. Replaced by wings that physically open and close on the move. Every driver, every lap.</p>
-    </header>
-
-    <div class="aero-wrap">
-      <div class="aero-display" id="aeroDisplay">
-        <!-- SVG injected -->
-      </div>
-
-      <div>
-        <div class="aero-modes">
-          <button class="aero-mode active" data-mode="z">
-            <span class="am-name">Z-Mode</span>
-            <span class="am-sub">In corners</span>
-          </button>
-          <button class="aero-mode" data-mode="x">
-            <span class="am-name">X-Mode</span>
-            <span class="am-sub">On straights</span>
-          </button>
-        </div>
-
-        <div class="aero-info">
-          <h4 id="aeroTitle">Z-Mode <em>— maximum grip.</em></h4>
-          <p id="aeroDesc">In corners, both wing flaps stay closed at their default angle. Maximum downforce, maximum grip. The car can attack the apex without sliding wide.</p>
-
-          <div class="aero-stats">
-            <div>
-              <div class="label">Front flap</div>
-              <div class="v" id="aeroFront">Closed</div>
-            </div>
-            <div>
-              <div class="label">Rear flap</div>
-              <div class="v" id="aeroRear">Closed</div>
-            </div>
-            <div>
-              <div class="label">Top speed</div>
-              <div class="v" id="aeroSpeed">~320 km/h</div>
-              <div class="delta" id="aeroSpeedDelta">Cornering bias</div>
-            </div>
-            <div>
-              <div class="label">Drag</div>
-              <div class="v" id="aeroDrag">High</div>
-              <div class="delta" id="aeroDragDelta">Penalty on straights</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================
-     §08 — TYRES
-     ============================================ -->
-<section class="section-block" id="tyres">
-  <div class="wrap">
-    <header class="sec-head">
-      <div class="num">§08</div>
-      <h2 class="title">Five <em>tyres.</em></h2>
-      <p class="desc">Pirelli supplies all of them. Softer = more grip, faster wear. Harder = less grip, lasts longer. The strategic core of every race.</p>
-    </header>
-
-    <div class="tyres-chart">
-      <div class="tyres-chart-head">
-        <div>Compound</div>
-        <div>Pace</div>
-        <div>Life</div>
-        <div>Use</div>
-      </div>
-      <div id="tyresList"></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================
-     §09 — STRATEGY SIMULATOR
-     ============================================ -->
-<section class="section-block" id="strategy">
-  <div class="wrap">
-    <header class="sec-head">
-      <div class="num">§09</div>
-      <h2 class="title">Build a <em>strategy.</em></h2>
-      <p class="desc">A 60-lap race. Pick three stints, set their length and compound. The rules: use at least two different dry compounds. Minimise total race time.</p>
-    </header>
-
-    <div class="strat">
-      <div class="strat-stints" id="stratStints"></div>
-      <div class="strat-bar" id="stratBar"></div>
-
-      <div class="strat-result">
-        <div>
-          <div class="label">Total race time</div>
-          <div class="v" id="stratTime">—</div>
-        </div>
-        <div>
-          <div class="label">Pit stops</div>
-          <div class="v" id="stratStops">0</div>
-        </div>
-        <div>
-          <div class="label">Compliance</div>
-          <div class="v" id="stratValid">—</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================
-     §10 — PIT STOP
-     ============================================ -->
-<section class="section-block" id="pitstop">
-  <div class="wrap">
-    <header class="sec-head">
-      <div class="num">§10</div>
-      <h2 class="title">Two <em>seconds.</em></h2>
-      <p class="desc">Twenty people change four wheels in less time than it takes you to read this. Try it — tap each wheel as it turns red. The F1 record is 1.82 seconds.</p>
-    </header>
-
-    <div class="pit">
-      <div class="pit-stage">
-        <svg class="pit-car-svg" viewBox="0 0 480 200" xmlns="http://www.w3.org/2000/svg">
-          <!-- Top-down car schematic, no fills -->
-          <line x1="0" y1="100" x2="480" y2="100" stroke="#D8D2C2" stroke-width="0.5" stroke-dasharray="2 4"/>
-          <!-- Front wing -->
-          <rect x="32" y="70" width="48" height="60" fill="none" stroke="#14130E" stroke-width="1"/>
-          <!-- Nose -->
-          <path d="M 80 80 L 130 92 L 130 108 L 80 120 Z" fill="none" stroke="#14130E" stroke-width="1"/>
-          <!-- Cockpit / body -->
-          <path d="M 130 80 L 180 78 L 220 80 L 220 120 L 180 122 L 130 120 Z" fill="none" stroke="#14130E" stroke-width="1"/>
-          <ellipse cx="175" cy="100" rx="14" ry="9" fill="none" stroke="#14130E" stroke-width="1"/>
-          <!-- Sidepods -->
-          <path d="M 220 75 L 320 70 L 320 130 L 220 125 Z" fill="none" stroke="#14130E" stroke-width="1"/>
-          <!-- Engine bay -->
-          <path d="M 320 75 L 400 85 L 400 115 L 320 125 Z" fill="none" stroke="#14130E" stroke-width="1"/>
-          <!-- Rear wing -->
-          <rect x="395" y="55" width="40" height="90" fill="none" stroke="#14130E" stroke-width="1"/>
-          <line x1="395" y1="80" x2="435" y2="80" stroke="#14130E" stroke-width="0.5"/>
-          <line x1="395" y1="120" x2="435" y2="120" stroke="#14130E" stroke-width="0.5"/>
-
-          <!-- Wheels with click targets -->
-          <g class="wheel-target" data-wheel="fl" role="button" aria-label="Front left wheel" tabindex="0">
-            <rect x="125" y="40" width="42" height="22" fill="none" stroke="#14130E" stroke-width="1"/>
-            <circle cx="146" cy="51" r="14" fill="#E8E2D2" stroke="#14130E" stroke-width="0.6"/>
-            <circle cx="146" cy="51" r="7" class="indicator" fill="#B8B1A0"/>
-          </g>
-          <g class="wheel-target" data-wheel="fr" role="button" aria-label="Front right wheel" tabindex="0">
-            <rect x="125" y="138" width="42" height="22" fill="none" stroke="#14130E" stroke-width="1"/>
-            <circle cx="146" cy="149" r="14" fill="#E8E2D2" stroke="#14130E" stroke-width="0.6"/>
-            <circle cx="146" cy="149" r="7" class="indicator" fill="#B8B1A0"/>
-          </g>
-          <g class="wheel-target" data-wheel="rl" role="button" aria-label="Rear left wheel" tabindex="0">
-            <rect x="320" y="38" width="48" height="24" fill="none" stroke="#14130E" stroke-width="1"/>
-            <circle cx="344" cy="50" r="15" fill="#E8E2D2" stroke="#14130E" stroke-width="0.6"/>
-            <circle cx="344" cy="50" r="8" class="indicator" fill="#B8B1A0"/>
-          </g>
-          <g class="wheel-target" data-wheel="rr" role="button" aria-label="Rear right wheel" tabindex="0">
-            <rect x="320" y="138" width="48" height="24" fill="none" stroke="#14130E" stroke-width="1"/>
-            <circle cx="344" cy="150" r="15" fill="#E8E2D2" stroke="#14130E" stroke-width="0.6"/>
-            <circle cx="344" cy="150" r="8" class="indicator" fill="#B8B1A0"/>
-          </g>
-        </svg>
-      </div>
-
-      <div class="pit-side">
-        <h4>Reaction game</h4>
-        <p>Each wheel will light red in a random order. Tap each as it lights. Wrong wheel = +0.5s penalty.</p>
-
-        <div class="pit-meters">
-          <div>
-            <div class="label">Your time</div>
-            <div class="v" id="pitTimer">0.00</div>
-          </div>
-          <div>
-            <div class="label">F1 record</div>
-            <div class="v red">1.82</div>
-          </div>
-          <div>
-            <div class="label">Your best</div>
-            <div class="v" id="pitBest">—</div>
-          </div>
-          <div>
-            <div class="label">Verdict</div>
-            <div class="v" id="pitVerdict" style="font-size: 14px;">Awaiting</div>
-          </div>
-        </div>
-
-        <button class="pit-btn" id="pitStart">Start pit stop</button>
-        <div class="pit-status" id="pitStatus">Press start, then tap each wheel as it goes red.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================
-     §11 — FLAGS
-     ============================================ -->
-<section class="section-block" id="flags">
-  <div class="wrap">
-    <header class="sec-head">
-      <div class="num">§11</div>
-      <h2 class="title">The <em>flags.</em></h2>
-      <p class="desc">Before radios, flags were how drivers were told what was happening on track. Still the official signalling system today.</p>
-    </header>
-
-    <div class="flags-ref" id="flagsRef"></div>
-  </div>
-</section>
-
-<!-- ============================================
-     §12 — STANDINGS
-     ============================================ -->
-<section class="section-block" id="standings">
-  <div class="wrap">
-    <header class="sec-head">
-      <div class="num">§12</div>
-      <h2 class="title">2026 <em>standings.</em></h2>
-      <p class="desc">Through Round 06 — the Monaco Grand Prix. Antonelli&rsquo;s five-race winning streak has him 66 points clear.</p>
-    </header>
-
-    <div class="standings-list" id="standingsList"></div>
-  </div>
-</section>
-
-<!-- ============================================
-     §13 — HISTORY (eras)
-     ============================================ -->
-<section class="section-block" id="history">
-  <div class="wrap">
-    <header class="sec-head">
-      <div class="num">§13</div>
-      <h2 class="title">Seventy-six <em>years.</em></h2>
-      <p class="desc">F1 began in 1950 with seven races. Five eras since, each defined by a technical paradigm and a dominant force.</p>
-    </header>
-
-    <div class="eras" id="erasGrid"></div>
-  </div>
-</section>
-
-<!-- ============================================
-     §14 — GLOSSARY
-     ============================================ -->
-<section class="section-block" id="glossary">
-  <div class="wrap">
-    <header class="sec-head">
-      <div class="num">§14</div>
-      <h2 class="title">A <em>— Z.</em></h2>
-      <p class="desc">Every term you will hear on a broadcast, defined without the jargon. Filter via the search.</p>
-    </header>
-
-    <input type="text" class="gloss-search" id="glossSearch" placeholder="Search · try &ldquo;active aero&rdquo; or &ldquo;undercut&rdquo;">
-    <div class="gloss-list" id="glossList"></div>
-  </div>
-</section>
-
-<!-- ============================================
+<!-- ============================================================
      FOOTER
-     ============================================ -->
-<footer class="footer">
-  <div class="wrap footer-inner">
-    <div class="footer-lock">GRID<span class="red-dot"></span> <em>— 2026 reference.</em></div>
-    <div class="footer-meta">
-      Built by <a href="https://parth8.github.io" target="_blank" rel="noopener">Parth</a> · v1.0 · June 2026<br>
-      Not affiliated with Formula 1, the FIA, or any team<br>
-      An educational reference. F1 marks belong to their owners.
-    </div>
+     ============================================================ -->
+<footer class="page-foot">
+  <div class="foot-mark">GRID</div>
+  <div class="foot-meta">
+    <span>Edited by <a href="https://parth8.github.io" target="_blank" rel="noopener">Parth</a></span>
+    <span>Live data · <a href="https://openf1.org" target="_blank" rel="noopener">OpenF1</a></span>
+    <span>Not affiliated with F1, the FIA, or any team</span>
+    <span>v3.0 · 2026</span>
   </div>
 </footer>
 
-<!-- ============================================
-     MODAL
-     ============================================ -->
-<div class="modal" id="detailModal">
-  <div class="modal-panel" id="detailPanel">
-    <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+<!-- Detail modal -->
+<div class="modal-overlay" id="detailModal">
+  <div class="modal">
+    <button class="modal-close" id="modalClose">×</button>
     <div id="detailBody"></div>
   </div>
 </div>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="GRID · Live — real-time F1 session data via OpenF1.">
+<meta name="theme-color" content="#F0EBE0">
+<title>Live · GRID</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.openf1.org">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F0EBE0'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23E10600'/%3E%3C/svg%3E">
+</head>
+<body data-page="live">
+
+<nav class="page-nav">
+  <a href="../" class="nav-mark"><span>GRID</span><em class="dot"></em></a>
+  <div class="nav-links" id="navLinks">
+    <a href="../">Home</a>
+    <a href="../the-grid/">The Grid</a>
+    <a href="../the-car/">The Car</a>
+    <a href="../live/" class="active">Live</a>
+    <a href="../learn/">Learn</a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<header class="page-head">
+  <div class="page-head-grid">
+    <div class="page-head-meta">
+      <span>Section · C</span>
+      <span id="liveStamp">Connecting…</span>
+    </div>
+    <div class="page-head-issue">№ 04</div>
+  </div>
+  <h1 class="page-head-title">Live<em class="serif">.</em></h1>
+  <p class="page-head-sub">
+    Real-time and recent session data, pulled directly from the OpenF1 public API. Positions, fastest laps, weather, race-control flags — straight from the timing tower.
+  </p>
+  <div class="cover-divider"><span class="rule"></span></div>
+</header>
+
+<!-- LIVE PANEL — Current/Latest Session -->
+<section class="section-block" id="live-session">
+  <div class="sec-head">
+    <div class="sec-left">
+      <div class="sec-num">§C1</div>
+      <h2 class="sec-title">Latest <em>session.</em></h2>
+    </div>
+    <p class="sec-lede">
+      Data comes from <a href="https://openf1.org" target="_blank" rel="noopener" style="color:var(--ink); text-decoration: underline; text-underline-offset: 3px;">openf1.org</a> — an open, unofficial mirror of F1&rsquo;s live timing. Free, no key. Updates every few seconds during a live session.
+    </p>
+  </div>
+
+  <div class="live-card" id="liveCard">
+    <div class="live-loading">
+      <div class="live-pulse"><span></span><span></span><span></span></div>
+      <div class="live-loading-text">Reaching OpenF1…</div>
+    </div>
+  </div>
+</section>
+
+<!-- POSITIONS -->
+<section class="section-block" id="live-positions">
+  <div class="sec-head">
+    <div class="sec-left">
+      <div class="sec-num">§C2</div>
+      <h2 class="sec-title">Positions.</h2>
+    </div>
+    <p class="sec-lede">
+      Top of the order at the moment data was fetched. During a race, this updates lap by lap.
+    </p>
+  </div>
+  <div class="live-positions" id="livePositions">
+    <div class="live-empty">Waiting on data…</div>
+  </div>
+</section>
+
+<!-- FASTEST LAP + WEATHER -->
+<section class="section-block" id="live-fast">
+  <div class="sec-head">
+    <div class="sec-left">
+      <div class="sec-num">§C3</div>
+      <h2 class="sec-title">Fastest lap <em>&amp;</em> weather.</h2>
+    </div>
+    <p class="sec-lede">
+      The fastest lap of the session and a snapshot of conditions at the circuit — track temperature, air temperature, rain, wind.
+    </p>
+  </div>
+  <div class="live-split">
+    <div class="live-fast-card" id="liveFast">
+      <div class="live-empty">—</div>
+    </div>
+    <div class="live-weather-card" id="liveWeather">
+      <div class="live-empty">—</div>
+    </div>
+  </div>
+</section>
+
+<!-- RACE CONTROL -->
+<section class="section-block" id="live-control">
+  <div class="sec-head">
+    <div class="sec-left">
+      <div class="sec-num">§C4</div>
+      <h2 class="sec-title">Race control.</h2>
+    </div>
+    <p class="sec-lede">
+      Every flag, penalty, safety car deployment, and incident logged by the race director. The session&rsquo;s narrative spine.
+    </p>
+  </div>
+  <div class="live-control" id="liveControl">
+    <div class="live-empty">—</div>
+  </div>
+</section>
+
+<!-- REFRESH -->
+<section class="section-block" id="live-meta">
+  <div class="live-meta-card">
+    <div class="live-meta-row">
+      <div>
+        <div class="k">Source</div>
+        <div class="v"><a href="https://openf1.org" target="_blank" rel="noopener">openf1.org</a> · <a href="https://github.com/br-g/openf1" target="_blank" rel="noopener">github / br-g / openf1</a></div>
+      </div>
+      <div>
+        <div class="k">Updated</div>
+        <div class="v" id="liveUpdated">—</div>
+      </div>
+      <div>
+        <div class="k">Status</div>
+        <div class="v" id="liveStatus">Connecting</div>
+      </div>
+      <button class="live-refresh" id="liveRefresh">Refresh</button>
+    </div>
+  </div>
+</section>
+
+<nav class="page-next">
+  <a href="../learn/" class="next-link">
+    <div class="next-label">Next · Section D</div>
+    <div class="next-title">Learn<em>.</em> <span class="arrow">→</span></div>
+  </a>
+</nav>
+
+<footer class="page-foot">
+  <div class="foot-mark">GRID</div>
+  <div class="foot-meta">
+    <span>Edited by <a href="https://parth8.github.io" target="_blank" rel="noopener">Parth</a></span>
+    <span>Live data · <a href="https://openf1.org" target="_blank" rel="noopener">OpenF1</a></span>
+    <span>Not affiliated with F1, the FIA, or any team</span>
+    <span>v3.0 · 2026</span>
+  </div>
+</footer>
+
+<script src="../js/data.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>

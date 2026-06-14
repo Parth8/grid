@@ -190,13 +190,35 @@ const F1 = {
     { pos:10, id:'pierre-gasly',     pts:26  }
   ],
 
-  /* ---- HISTORY ERAS (compressed — 5 eras, not 15 events) ---- */
+  /* ---- HISTORY ERAS (15 moments — 5x3 grid) ---- */
   eras: [
-    { range:'1950 — 1979', name:'The pioneer era',     desc:'Front-engined gentlemen racers give way to mid-engined British garagistes. Fangio, Clark, Stewart, Lauda. No seat belts until 1972.', stat:{ k:'First champion', v:'Giuseppe Farina, Alfa Romeo, 1950' } },
-    { range:'1980 — 1993', name:'Turbo and tobacco',   desc:'Ground-effect, turbocharging, Senna vs Prost. Money pours in via cigarette sponsors. McLaren-Honda wins 15 of 16 races in 1988.', stat:{ k:'Defining rivalry', v:'Senna 41 wins · Prost 51 wins' } },
-    { range:'1994 — 2008', name:'Schumacher and safety', desc:'Senna&rsquo;s death at Imola in 1994 transforms safety. Schumacher dominates with Ferrari. Five titles in a row, 2000-2004.', stat:{ k:'Iconic stat', v:'Schumacher: 91 wins, 7 titles' } },
-    { range:'2009 — 2021', name:'Hybrid hegemony',     desc:'KERS, DRS, then the 1.6L turbo-hybrid era from 2014. Mercedes wins eight constructors&rsquo; titles in a row.', stat:{ k:'Closer', v:'Abu Dhabi 2021 — final lap title.' } },
-    { range:'2022 — now',  name:'Ground effect, then a reset', desc:'Underfloor tunnels return for closer racing. Red Bull then McLaren dominate. 2026 brings the biggest regulation reset in F1 history.', stat:{ k:'2025 champion', v:'Lando Norris · McLaren' } }
+    { range:'1950',        name:'F1 begins.',                desc:'The first World Championship race runs at Silverstone in May 1950. Seven races, all in Europe.', stat:{ k:'First champion', v:'Giuseppe Farina · Alfa Romeo' } },
+    { range:'1958 — 1968', name:'The British garagistes.',  desc:'Cooper and Lotus pioneer mid-engined cars. The British "kit-car" teams take over from the front-engined gentlemen.', stat:{ k:'First constructors champion', v:'Vanwall · 1958' } },
+    { range:'1968 — 1976', name:'Money arrives.',           desc:'Lotus paints their cars Gold Leaf cigarette red in 1968. Sponsorship transforms the sport overnight. Jackie Stewart pushes hard for safety.', stat:{ k:'Iconic season', v:'Hunt vs Lauda · 1976' } },
+    { range:'1977 — 1982', name:'Ground effect.',           desc:'Lotus 79 uses shaped underbody tunnels to glue itself to the track. Every team copies. Banned after one season too dangerous.', stat:{ k:'Defining car', v:'Lotus 79 · 1978' } },
+    { range:'1983 — 1988', name:'The turbo era.',           desc:'1.5L turbos produce 1,400 hp in qualifying. Senna vs Prost arrives at McLaren-Honda. They win 15 of 16 races in 1988.', stat:{ k:'Senna vs Prost', v:'41 wins · 51 wins' } },
+    { range:'1989 — 1993', name:'V12s and active suspension.', desc:'Turbos banned. Naturally-aspirated V12s and computer-controlled chassis dominate. Williams-Renault are unstoppable.', stat:{ k:'Tech ban', v:'Active suspension · 1994' } },
+    { range:'1994',        name:'Imola.',                    desc:'Roland Ratzenberger killed Saturday. Ayrton Senna killed Sunday at Tamburello. F1 safety is rebuilt from the ground up.', stat:{ k:'The pivot', v:'Halo, HANS, crash structures' } },
+    { range:'2000 — 2004', name:'Schumacher\'s Ferrari.',    desc:'Five consecutive titles. Schumacher and technical director Ross Brawn become the most relentless duo in F1 history.', stat:{ k:'Wins, that span', v:'48 of 85 races' } },
+    { range:'2005 — 2008', name:'Alonso, then Hamilton.',   desc:'Alonso\'s Renault breaks Ferrari. Hamilton arrives in 2007 as the first Black driver. Wins the title in his second season.', stat:{ k:'Closest finish', v:'2008 · Hamilton by 1pt' } },
+    { range:'2010 — 2013', name:'Vettel, Red Bull, Newey.', desc:'Adrian Newey\'s blown-diffuser RB-cars dominate. Sebastian Vettel wins four titles in a row.', stat:{ k:'Vettel\'s streak', v:'9 wins in a row · 2013' } },
+    { range:'2014 — 2021', name:'Hybrid hegemony.',         desc:'1.6L turbo-hybrid era. Mercedes wins eight consecutive Constructors titles. Hamilton ties Schumacher on seven.', stat:{ k:'Closer', v:'Abu Dhabi 2021 · final lap' } },
+    { range:'2022 — 2024', name:'Ground effect returns.',    desc:'Underbody tunnels back for closer racing. Verstappen and Red Bull crush the new regs. Three more titles for Max.', stat:{ k:'2023 season', v:'Verstappen · 19 wins of 22' } },
+    { range:'2025',        name:'Norris and Hamilton-to-Ferrari.', desc:'McLaren defeats Red Bull. Norris beats teammate Piastri to the title by two points. Hamilton swaps Mercedes red for Ferrari.', stat:{ k:'2025 champion', v:'Lando Norris · McLaren' } },
+    { range:'2026',        name:'The biggest reset.',       desc:'New 50/50 hybrid engines. 100% sustainable fuel. Active aero replaces DRS. Cadillac arrives as the 11th team. Audi takes over Sauber.', stat:{ k:'New entries', v:'Cadillac · Audi works' } },
+    { range:'2026 — ',     name:'Antonelli\'s spring.',     desc:'Five consecutive wins for the 19-year-old in his first full season. The youngest championship leader of the modern era.', stat:{ k:'Through Monaco', v:'156 pts · +66 to P2' } }
+  ],
+
+  /* ---- WHAT IS FORMULA 1 — primer cards ---- */
+  primer: [
+    { num:'01', title:'The format.',         body:'Open-wheel single-seater racing. Twenty-two cars, eleven teams, twenty-two Grands Prix between March and December. Whoever finishes the year with the most points wins.' },
+    { num:'02', title:'Two championships.',  body:'Drivers compete for individual glory. Teams (their employers) compete in parallel for the Constructors\u2019 title. Both run on the same points.' },
+    { num:'03', title:'The car is the team.', body:'Every team designs and builds its own car to a shared rulebook. The engine may come from another manufacturer. Mercedes-engined cars race against Ferrari-engined cars on the same grid.' },
+    { num:'04', title:'A weekend has three days.', body:'Friday: practice. Saturday: qualifying — sets the starting order. Sunday: the Grand Prix itself. Six weekends a year add a Saturday Sprint race for extra points.' },
+    { num:'05', title:'Points down to tenth.', body:'25 points for a win, 18 for second, 15 for third, sliding down to 1 point for tenth. One extra point for the driver setting the fastest lap, if they finish in the top 10.' },
+    { num:'06', title:'Tyres are strategy.',   body:'Pirelli supplies five compounds. Soft is fastest but wears out quickest. Drivers must use at least two different dry compounds per race — so every race has at least one pit stop.' },
+    { num:'07', title:'Safety is rebuilt every year.', body:'Halo above the cockpit since 2018. Survival cell withstands 12 tonnes. Drivers walk away from 51G crashes. Three deaths in the World Championship since 1994.' },
+    { num:'08', title:'It is global.',         body:'22 races across five continents. Monaco runs since 1929. Las Vegas, Miami, and Madrid are recent additions. Around 70 million tune in for a typical Grand Prix.' }
   ],
 
   /* ---- GLOSSARY (compressed, alphabetised) ---- */
