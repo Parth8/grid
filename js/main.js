@@ -4,6 +4,109 @@
    for elements that exist on it. No frameworks.
    ============================================================ */
 
+/* ============================================================
+   v4 BOOT — character pass: cursor, scroll progress, reveals
+   ============================================================ */
+(function v4Boot() {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+  function onReady(fn) {
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);
+    else fn();
+  }
+
+  onReady(() => {
+    // ---- Custom cursor (skip on touch / reduced motion) ----
+    if (!isTouch && !reduceMotion) {
+      const cursor = document.createElement('div');
+      cursor.id = 'v4-cursor';
+      const ring = document.createElement('div');
+      ring.id = 'v4-cursor-ring';
+      document.body.append(cursor, ring);
+
+      let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+      let rx = mx, ry = my;
+      cursor.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+      ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+
+      document.addEventListener('mousemove', (e) => {
+        mx = e.clientX; my = e.clientY;
+        cursor.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+      }, { passive: true });
+
+      (function frame() {
+        rx += (mx - rx) * 0.18;
+        ry += (my - ry) * 0.18;
+        ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+        requestAnimationFrame(frame);
+      })();
+
+      const iSel = 'a, button, .route-card, .tt-row[data-team], .drv-row[data-driver], .cal-cell, .anatomy-marker, .callout, .wheel-target, .modal-close, .primer-cell, .stamp, .drv-filter, .cal-filter, .aero-mode, .podium-cell, .pit-btn, [data-cursor="hover"]';
+      document.addEventListener('mouseover', (e) => {
+        if (e.target.closest && e.target.closest(iSel)) {
+          cursor.classList.add('hover'); ring.classList.add('hover');
+        }
+      });
+      document.addEventListener('mouseout', (e) => {
+        if (e.target.closest && e.target.closest(iSel)) {
+          cursor.classList.remove('hover'); ring.classList.remove('hover');
+        }
+      });
+      document.addEventListener('mouseleave', () => {
+        cursor.style.opacity = '0'; ring.style.opacity = '0';
+      });
+      document.addEventListener('mouseenter', () => {
+        cursor.style.opacity = '1'; ring.style.opacity = '1';
+      });
+    }
+
+    // ---- Scroll progress bar ----
+    const sp = document.createElement('div');
+    sp.id = 'v4-scroll-progress';
+    sp.innerHTML = '<div id="v4-scroll-fill"></div>';
+    document.body.appendChild(sp);
+    const fill = sp.querySelector('#v4-scroll-fill');
+    function updateScroll() {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      fill.style.height = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    }
+    document.addEventListener('scroll', updateScroll, { passive: true });
+    updateScroll();
+
+    // ---- Scroll reveal observer ----
+    if ('IntersectionObserver' in window && !reduceMotion) {
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in-view');
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+      // Auto-mark common section elements
+      const revealSel = '.sec-head, .route-card, .primer-cell, .cal-cell, .tt-row, .drv-row, .stamp, .latest-card, .bn-cell, .compare > div, .standings-list, .tyres-row, .era, .gloss-row, .weekend-day, .flag-cell, .anatomy-card, .aero-explain, .pit-arena, .strat-wrap, .live-card, .live-fast-card, .live-weather-card, .live-positions, .live-control, .podium-cell';
+      const vh = window.innerHeight;
+      document.querySelectorAll(revealSel).forEach(el => {
+        if (el.closest('.modal')) return;
+        el.classList.add('reveal');
+        // If already in initial viewport, reveal immediately
+        const r = el.getBoundingClientRect();
+        if (r.top < vh * 0.95 && r.bottom > 0) {
+          requestAnimationFrame(() => el.classList.add('in-view'));
+        } else {
+          obs.observe(el);
+        }
+      });
+    } else {
+      // Fallback: mark everything in-view immediately
+      document.querySelectorAll('.sec-head, .reveal').forEach(el => el.classList.add('in-view'));
+    }
+  });
+})();
+
 (function() {
   'use strict';
 
@@ -938,13 +1041,42 @@
      ============================================================ */
   const OPENF1 = 'https://api.openf1.org/v1';
 
-  async function fetchJSON(url, opts = {}) {
-    const ctrl = new AbortController();
-    const t = setTimeout(() => ctrl.abort(), opts.timeout || 8000);
+  // OpenF1 throttle: every call waits at least 600ms after the previous call's start.
+  // Persisted in localStorage so the throttle holds across page refreshes.
+  const OPENF1_MIN_GAP = 600;
+  const THROTTLE_KEY = 'grid-openf1-last-start';
+  let openf1Chain = Promise.resolve();
+
+  function readLastStart() {
     try {
-      const res = await fetch(url, { signal: ctrl.signal });
+      const v = parseFloat(localStorage.getItem(THROTTLE_KEY) || '0');
+      return isFinite(v) ? v : 0;
+    } catch { return 0; }
+  }
+  function writeLastStart(ts) {
+    try { localStorage.setItem(THROTTLE_KEY, String(ts)); } catch {}
+  }
+
+  async function throttleSlot() {
+    const last = readLastStart();
+    const wait = Math.max(0, last + OPENF1_MIN_GAP - Date.now());
+    const myStart = Date.now() + wait;
+    writeLastStart(myStart);
+    if (wait > 0) await new Promise(r => setTimeout(r, wait));
+  }
+
+  async function fetchJSON(url, opts = {}) {
+    // Chain onto the global queue so concurrent callers wait their turn
+    const myTurn = openf1Chain.then(throttleSlot);
+    openf1Chain = myTurn.catch(() => {}); // don't break chain on error
+    await myTurn;
+
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), opts.timeout || 10000);
+    try {
+      const res = await fetch(url, { signal: ctrl.signal, mode: 'cors' });
       clearTimeout(t);
-      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       return await res.json();
     } catch (err) {
       clearTimeout(t);
